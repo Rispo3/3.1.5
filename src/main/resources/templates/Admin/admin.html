@@ -23,14 +23,15 @@
             <td th:text="${user.getAge()}"></td>
             <td th:text="${user.getEmail()}"></td>
             <td th:text="${user.getPassword()}"></td>
-            <td><a th:href="@{/users/{id}/update(id=${user.getId()})}">
+            <td><a th:href="@{/admin/{id}/update(id=${user.getId()})}">
                 <input type="submit" value="Изменить пользователя"></a></td>
-            <td><a th:href="@{/users/{id}/delete(id=${user.getId()})}">
+            <td><a th:href="@{/admin/{id}/delete(id=${user.getId()})}">
                 <input type="submit" value="Удалить пользователя"></a></td>
         </tr>
     </table>
-    <p><a href = "/users/new"><input type="submit" value="Создать пользователя"></a></p>
+    <p><a href = "/admin/new"><input type="submit" value="Создать пользователя"></a></p>
 
 </div>
+<p><a href="/logout"><input type="submit" value="Выйти из аккаунта"></a></p>
 </body>
 </html>

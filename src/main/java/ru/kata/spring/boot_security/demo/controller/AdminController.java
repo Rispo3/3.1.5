@@ -12,7 +12,6 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 public class AdminController {
     private UserService userService;
 
-
     @Autowired
     public AdminController(UserService userService) {
         this.userService = userService;
@@ -23,10 +22,13 @@ public class AdminController {
         return "Admin/admin";
     }
     @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user) {
-        return "User/new";
+    public String newUser(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        model.addAttribute("listRoles", userService.listRoles());
+        return "Admin/new";
     }
-    @PostMapping()
+    @PostMapping("/new")
     public String create(@ModelAttribute("user") User user) {
         userService.add(user);
         return "redirect:/admin";
@@ -35,6 +37,7 @@ public class AdminController {
     @GetMapping("/{id}/update")
     public String Edit(Model model, @PathVariable("id") Long id){
         model.addAttribute("user", userService.get(id));
+        model.addAttribute("listRoles", userService.listRoles());
         return "Admin/update";
     }
 
