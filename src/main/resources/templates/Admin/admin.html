@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+Все пользователи
+<div>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Password</th>
+        </tr>
+        <tr th:each ="user : ${users}">
+
+            <!--/*@thymesVar id="user" type="ru.kata.spring.boot_security.demo.entity.User"*/-->
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getUsername()}"></td>
+            <td th:text="${user.getAge()}"></td>
+            <td th:text="${user.getEmail()}"></td>
+            <td th:text="${user.getPassword()}"></td>
+            <td><a th:href="@{/users/{id}/update(id=${user.getId()})}">
+                <input type="submit" value="Изменить пользователя"></a></td>
+            <td><a th:href="@{/users/{id}/delete(id=${user.getId()})}">
+                <input type="submit" value="Удалить пользователя"></a></td>
+        </tr>
+    </table>
+    <p><a href = "/users/new"><input type="submit" value="Создать пользователя"></a></p>
+
+</div>
+</body>
+</html>
