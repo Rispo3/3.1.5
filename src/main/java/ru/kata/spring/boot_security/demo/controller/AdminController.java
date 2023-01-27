@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +17,9 @@ public class AdminController {
         this.userService = userService;
     }
     @GetMapping
-    public String printUsers(Model model) {
+    public String printUsers(Model model, @AuthenticationPrincipal User user) {
         model.addAttribute("users", userService.allUsers());
+        model.addAttribute("admin", user);
         return "Admin/admin";
     }
     @GetMapping("/new")
