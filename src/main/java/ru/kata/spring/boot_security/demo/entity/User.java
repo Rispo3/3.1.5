@@ -11,113 +11,134 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+   @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Column(name = "id")
+   private Long id;
 
-    @Column(nullable = false)
-    private Integer age;
+   @Column(name = "name")
+   private String username;
 
-    @Column(nullable = false)
-    private String email;
+   @Column(name = "last_name")
+   private String lastName;
 
-    @Column(nullable = false)
-    private String password;
+   @Column(name = "age")
+   private int age;
 
-    @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-            name= "User_Role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+   @Column(name = "email")
+   private String email;
 
-    public User() {
-    }
+   @Column(name = "password")
+   private String password;
+   @ManyToMany(fetch = FetchType.LAZY)
+   @JoinTable(
+           name = "user_role"
+           , joinColumns = @JoinColumn(name = "user_id")
+           , inverseJoinColumns = @JoinColumn(name = "role_id")
+   )
+   private Set<Role> roles;
 
-    public User(String username, Integer age, String email, String password) {
-        this.username = username;
-        this.age = age;
-        this.email = email;
-        this.password = password;
-    }
 
-    public Long getId() {
-        return id;
-    }
+   public User() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+   public User(String username, String lastName, int age, String email, String password) {
+      this.username = username;
+      this.lastName = lastName;
+      this.age = age;
+      this.email = email;
+      this.password = password;
+   }
 
-    public Integer getAge() {
-        return age;
-    }
+   public Set<Role> getRoles() {
+      return roles;
+   }
 
-    public void setAge(Integer age) {
-        this.age = age;
-    }
+   public void setRoles(Set<Role> roles) {
+      this.roles = roles;
+   }
 
-    public String getEmail() {
-        return email;
-    }
+   public Long getId() {
+      return id;
+   }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+   public void setId(Long id) {
+      this.id = id;
+   }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+   public String getName() {
+      return username;
+   }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
+   public void setUsername(String username) {
+      this.username = username;
+   }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+   public String getLastName() {
+      return lastName;
+   }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
-    }
+   public void setLastName(String lastName) {
+      this.lastName = lastName;
+   }
 
-    public String getPassword() {
-        return password;
-    }
+   public int getAge() {
+      return age;
+   }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
+   public void setAge(int age) {
+      this.age = age;
+   }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+   public String getEmail() {
+      return email;
+   }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
+   public void setEmail(String email) {
+      this.email = email;
+   }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+
+   @Override
+   public Collection<? extends GrantedAuthority> getAuthorities() {
+      return getRoles();
+   }
+
+   public String getPassword() {
+      return password;
+   }
+
+   @Override
+   public String getUsername() {
+      return username;
+   }
+
+   @Override
+   public boolean isAccountNonExpired() {
+      return true;
+   }
+
+   @Override
+   public boolean isAccountNonLocked() {
+      return true;
+   }
+
+   @Override
+   public boolean isCredentialsNonExpired() {
+      return true;
+   }
+
+   @Override
+   public boolean isEnabled() {
+      return true;
+   }
+
+   public void setPassword(String password) {
+      this.password = password;
+   }
+
 
 }
 
