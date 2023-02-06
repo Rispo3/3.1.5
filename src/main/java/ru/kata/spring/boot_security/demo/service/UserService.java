@@ -73,4 +73,7 @@ public class UserService implements UserDetailsService {
         return roleRepository.findAll();
     }
 
+    public User findById(Long id) {
+        return userRepository.getById(id);
+    }
 }
