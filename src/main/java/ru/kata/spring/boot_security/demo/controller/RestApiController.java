@@ -56,5 +56,4 @@ public class RestApiController {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
-
 }

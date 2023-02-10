@@ -13,6 +13,7 @@ import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -44,7 +45,9 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public void updateUser(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        if (!Objects.equals(user.getPassword(), getUser(user.getId()).getPassword())) {
+            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        }
         userRepository.save(user);
     }
 
